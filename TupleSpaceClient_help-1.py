@@ -49,11 +49,22 @@ def main():
                     # content length
                     total_len = 6 + len(key)
                     content = f"R {key}"
-                    
+
                 elif cmd == "GET":
                     key = parts[1]
                     total_len = 6 + len(key)
                     content = f"G {key}"
+
+                elif cmd == "PUT":
+                    # Read the key and value
+                    key = parts[1]
+                    val = parts[2]
+                    # Check if the length exceeds 970
+                    if len(key + " " + val) > 970:
+                        print(f"{line}: ERR Line too long")
+                        continue
+                    total_len = 7 + len(key) + len(val)
+                    content = f"P {key} {val}"
 
 
 
