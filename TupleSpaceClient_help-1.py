@@ -65,6 +65,18 @@ def main():
                         continue
                     total_len = 7 + len(key) + len(val)
                     content = f"P {key} {val}"
+                
+                else:
+                    # Skip unknown commands
+                    print(f"{line}: unknown command")
+                    continue
+                # Splicing the final message
+                message = f"{total_len:03d} {content}"
+            except Exception:
+                # Skip incorrect format
+                print(f"{line}: incorrect format")
+                continue
+
 
 
 
