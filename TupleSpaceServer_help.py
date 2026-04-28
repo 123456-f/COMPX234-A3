@@ -102,6 +102,8 @@ def handle_client(client_socket):
         client_socket.close()
 
 def handle_request(message):
+    message = message.decode().strip()
+
     global tuple_space
     increment_stat("total_operations")
     if len(message) < 3:
