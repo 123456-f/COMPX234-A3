@@ -85,6 +85,13 @@ def main():
             # - Receive: first read 3 bytes to get the response size (like the server does).
             #            Then read the remaining (size - 3) bytes to get the response body.
 
+            # Send a message
+            sock.sendall(message.encode())
+            # Read 3 bytes first to obtain the total length of the response
+            size_bytes = sock.recv(3)
+            resp_size = int(size_bytes.decode())
+            # Read the remaining response content
+            response_buffer = sock.recv(resp_size - 3)
 
             response = response_buffer.decode().strip()
             print(f"{line}: {response}")
