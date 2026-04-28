@@ -42,6 +42,19 @@ def main():
             # X is "R" for READ and "G" for GET.
             # Hint: for READ/GET, size = 6 + len(key). For PUT, size = 7 + len(key) + len(value).
             # Reject lines with invalid format or key+" "+value > 970 chars.
+            try:
+                if cmd == "READ":
+                    # Extract the key
+                    key = parts[1]
+                    # content length
+                    total_len = 6 + len(key)
+                    content = f"R {key}"
+                    
+                elif cmd == "GET":
+                    key = parts[1]
+                    total_len = 6 + len(key)
+                    content = f"G {key}"
+
 
 
             # TASK 3: Send the message to the server, then receive the response.
