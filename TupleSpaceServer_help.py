@@ -154,6 +154,18 @@ def handle_request(message):
             # Validate: len(value) <= 999 and len(key + " " + value) <= 970.
             # Return "OK (<key>, <value>) added" or "ERR <key> already exists".
             increment_stat("put_count")
+            # Check if the length meets the requirements of the assignment
+            if len(value) > 999 or len(key + " " + value) > 970:
+                increment_stat("error_count")
+                return "ERR Length too long"
+            # Check if the key already exists
+            if key in tuple_space:
+                # If it already exists, return an error
+                return f"ERR {key} already exists"
+            else:
+                # If it does not exist, store it in tuple space
+                tuple_space[key] = value
+                return f"OK ({key}, {value}) added"
 
 
         else:
